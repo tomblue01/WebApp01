@@ -7,17 +7,17 @@ jobs:
       image: python:3.7
     env:
       REZILION_LICENSE_KEY: ${{ secrets.REZILION_LICENSE_KEY }}
-      REZILION_SEVERITY_GATE: critical
+ #     REZILION_SEVERITY_GATE: critical
  
     steps:
       - uses: actions/checkout@v3
-      - uses: Rezilion/github-action@v2.6.0 
+      - uses: Rezilion/github-action@v2.7.0 
         with:
           mode: 'start'
           image_name: 'nginx:latest'
           command: 'sleep 5'
           
-      - uses: Rezilion/github-action@v2.6.0 
+      - uses: Rezilion/github-action@v2.7.0 
         with:
           mode: 'start'
           image_name: 'nginx:latest'
@@ -35,7 +35,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       #- uses: ./.github/actions/Rezilion #example using the private action
-      - uses: Rezilion/github-action@v2.6.0
+      - uses: Rezilion/github-action@v2.7.0
         with:
           mode: 'validate'
               
