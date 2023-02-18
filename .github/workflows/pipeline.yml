@@ -4,7 +4,7 @@ jobs:
   test-sanity:
     runs-on: ubuntu-latest
     container:
-      image: python:3.7
+      image: tomblue01\webapp001
     env:
       REZILION_LICENSE_KEY: ${{ secrets.REZILION_LICENSE_KEY }}
  #     REZILION_SEVERITY_GATE: critical
@@ -16,8 +16,8 @@ jobs:
         with:
           mode: 'start'
           image_name: 'tomblue01\webapp001'
-          command: 'ls'
-          run: 'pwd'
+      - name: running app
+        run: 'pwd; ls'
           #command: 'timeout 30 java -Duser.home=/home/webgoat -Dfile.encoding=UTF-8 --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.beans=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED -Dwebgoat.host=0.0.0.0 -Dwebwolf.host=0.0.0.0 -Dwebgoat.port=8080 -Dwebwolf.port=9090 -jar webgoat.jar || true'
           #command: cd /home/webgoat ;
           
