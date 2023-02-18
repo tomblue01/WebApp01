@@ -14,7 +14,7 @@ jobs:
       - uses: Rezilion/github-action@v2.7.0 
         with:
           mode: 'start'
-          image_name: 'nginx:latest'
+          image_name: 'tomblue01\webapp001'
           command: 'sleep 5'
           
       - uses: Rezilion/github-action@v2.7.0 
