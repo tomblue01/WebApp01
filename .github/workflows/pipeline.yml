@@ -4,7 +4,7 @@ jobs:
   test-runtimes:
     runs-on: ubuntu-latest
     container:
-      image: 'tomblue01\webapp001:latest'
+      image: docker.io\tomblue01\webapp001:latest
     env:
       REZILION_LICENSE_KEY: ${{ secrets.REZILION_LICENSE_KEY }}
  #     REZILION_SEVERITY_GATE: critical
