@@ -1,10 +1,10 @@
 name: CI
 on: [push]
 jobs:
-  test-sanity:
+  test-runtimes:
     runs-on: ubuntu-latest
     container:
-      image: tomblue01\webapp001:latest
+      image: 'tomblue01\webapp001:latest'
     env:
       REZILION_LICENSE_KEY: ${{ secrets.REZILION_LICENSE_KEY }}
  #     REZILION_SEVERITY_GATE: critical
@@ -12,14 +12,12 @@ jobs:
  
     steps:
       - uses: actions/checkout@v3
+      - run: pwd; ls
       - uses: Rezilion/github-action@v2.7.0 
         with:
-          mode: 'start'
           image_name: 'tomblue01\webapp001:latest'
-      - name: running app
-        run: 'pwd; ls'
-          #command: 'timeout 30 java -Duser.home=/home/webgoat -Dfile.encoding=UTF-8 --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.beans=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED -Dwebgoat.host=0.0.0.0 -Dwebwolf.host=0.0.0.0 -Dwebgoat.port=8080 -Dwebwolf.port=9090 -jar webgoat.jar || true'
-          #command: cd /home/webgoat ;
+          mode: 'start'
+          command: timeout 30 java -Duser.home=/home/webgoat -Dfile.encoding=UTF-8 --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.beans=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED -Dwebgoat.host=0.0.0.0 -Dwebwolf.host=0.0.0.0 -Dwebgoat.port=8080 -Dwebwolf.port=9090 -jar webgoat.jar || true
           
  #     - uses: Rezilion/github-action@v2.7.0 
  #       with:
@@ -27,18 +25,17 @@ jobs:
  #         image_name: 'nginx:latest'
  #         command: 'echo "Hey"'
       
-  Rezilion:
-    needs: [test-sanity]
+  rezilion:
+    needs: [test-runtimes]
     runs-on: ubuntu-latest
     container:
       image: centos:centos7
     env:
       REZILION_LICENSE_KEY: ${{ secrets.REZILION_LICENSE_KEY }}
       REZILION_ACCESS_TOKEN: ${{ secrets.REZILION_ACCESS_TOKEN }}
-      REZILION_DONT_RUN_REMEDIATE: true
+      REZILION_RUN_REMEDIATE: true
     steps:
       - uses: actions/checkout@v3
-      #- uses: ./.github/actions/Rezilion #example using the private action
       - uses: Rezilion/github-action@v2.7.0
         with:
           mode: 'validate'
