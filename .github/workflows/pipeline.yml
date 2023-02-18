@@ -11,6 +11,7 @@ jobs:
       REZILION_RUN_REMEDIATE: true
  
     steps:
+      - uses: actions/cache@v2
       - uses: actions/checkout@v3
       - uses: Rezilion/github-action@v2.7.0 
         with:
